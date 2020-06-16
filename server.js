@@ -6,12 +6,14 @@ const mongoose = require('mongoose');
 const productRoutes = express.Router();
 const PORT = 4000;
 const connectionString = 'mongodb+srv://sebuadmin:root737sebu@cluster0-p69a3.mongodb.net/buseDB?retryWrites=true&w=majority';
-
+//load the mongodb schema
 let Product =require('./productSchema');
-
+//for cross origin police
 app.use(cors());
+//to parse the json file
 app.use(bodyParser.json());
 
+//connecting the monogdb collection
 mongoose.connect(connectionString, {useUnifiedTopology: true, 
     useNewUrlParser: true});
 
@@ -19,7 +21,6 @@ const connection = mongoose.connection;
 connection.once('open', function(){ 
     console.log("connection established");
 })
-
 
 productRoutes.route('/').get(function(req, res){
     Product.find(function(err, product){
@@ -32,6 +33,7 @@ productRoutes.route('/').get(function(req, res){
     });
 });
 
+//search the product with respect to id
 productRoutes.route('/:id').get(function(req, res){
     let id = req.params.id
     Product.findById(id, function(err, product){
@@ -39,6 +41,7 @@ productRoutes.route('/:id').get(function(req, res){
     });
 });
 
+//add the new product
 productRoutes.route('/add').post(function(req, res){
     let product = new Product(req.body);
     product.save()
@@ -50,6 +53,7 @@ productRoutes.route('/add').post(function(req, res){
     });    
 });
 
+//update the existing product
 productRoutes.route('/update/:id').post(function(req, res){
     Product.findById(req.params.id, function(err, product){
         if(!product)
@@ -69,7 +73,8 @@ productRoutes.route('/update/:id').post(function(req, res){
 
     });
 });
-app.use('/products', productRoutes);
+//api hit point
+app.use('/api/products', productRoutes);
 
 app.listen(PORT, function(){
     console.log("server is running on Port: " + PORT);
