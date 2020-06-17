@@ -76,7 +76,7 @@ productRoutes.route('/update/:id').post(function(req, res){
 //api hit point
 app.use('/api/products', productRoutes);
 //default path
-app.use('/', function (req, res, next) {
+app.use('/', function (req, res) {
     res.status(200).send("Hello this is API");
   })
 app.listen(PORT, function(){
