@@ -77,7 +77,7 @@ productRoutes.route('/update/:id').post(function(req, res){
 app.use('/', function (req, res, next) {
     res.status(200).send("Hello this is API");
     next();
-  })
+  });
 //api hit point
 app.use('/api/products', productRoutes);
 app.listen(PORT, function(){
