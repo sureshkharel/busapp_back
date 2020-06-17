@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const productRoutes = express.Router();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const connectionString = 'mongodb+srv://sebuadmin:root737sebu@cluster0-p69a3.mongodb.net/buseDB?retryWrites=true&w=majority';
 //load the mongodb schema
 let Product =require('./productSchema');
@@ -75,7 +75,10 @@ productRoutes.route('/update/:id').post(function(req, res){
 });
 //api hit point
 app.use('/api/products', productRoutes);
-
+//default path
+app.use('/', function (req, res, next) {
+    res.status(200).send("Hello this is API");
+  })
 app.listen(PORT, function(){
     console.log("server is running on Port: " + PORT);
 });
