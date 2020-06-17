@@ -73,13 +73,13 @@ productRoutes.route('/update/:id').post(function(req, res){
 
     });
 });
-//api hit point
-app.use('/api/products', productRoutes);
 //default path
 app.use('/', function (req, res, next) {
     res.status(200).send("Hello this is API");
     next();
   })
+//api hit point
+app.use('/api/products', productRoutes);
 app.listen(PORT, function(){
     console.log("server is running on Port: " + PORT);
 });
